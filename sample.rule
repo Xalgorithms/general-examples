@@ -1,0 +1,1 @@
+WHEN envelope:type == 'invoice';
