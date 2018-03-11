@@ -1,6 +1,7 @@
 {
   "rules" : {
     "sample" : {
+      "version" : "0.0.1",
       "effective" : [
         { "timezone" : "AST", "starts" : "2017-12-29T00:00", "ends" : "2018-12-29T23:59" }
       ],
@@ -25,6 +26,7 @@
   },
   "tables" : {
     "sample" : {
+      "version" : "0.0.1",
       "xa" : {
         "version" : "0.0.2"
       },
