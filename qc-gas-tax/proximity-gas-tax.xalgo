@@ -1,0 +1,84 @@
+# only applies to invoices in the ISIC industry of G4711 - retail petrol
+WHEN envelope:type == 'invoice';
+WHEN envelope:parties.supplier.industry.list_id == 'ISIC';
+WHEN envelope:parties.supplier.industry.value == 'G4711';
+
+# only applies to items classified as UNSPSC 506505 (petrol)
+WHEN item:classification.list_name == 'UNSPSC';
+WHEN item:classification.value == '506505';
+WHEN item:quantity.value > 0;
+
+# load tables that add additional information
+REQUIRE ca.qc.tax:station_distances:0.0.1 AS distances;
+REQUIRE ca.qc.tax:reductions_by_distance:0.0.1 AS reductions_by_distance;
+
+# build a table that contains the seller information joined against the predefined
+# reductions table. This yields a table in the form:
+#
+# [{ reduction, distance, seller_distance }]
+#
+# if we suppose that there are 3 distances (1km, 2km, 3km) with
+# reductions and the seller distance is 1.3 km, the resulting table
+# will be:
+#
+# [
+#   { 1, 0.02, 1.3 },
+#   { 2, 0.04, 1.3 },
+#   { 3, 0.06, 1.3 }
+# ]
+#
+ASSEMBLE table:sellers_reductions
+  COLUMNS FROM table:reductions_by_distance
+  COLUMN seller_distance FROM table:distances WHEN envelope:parties.suppler.id.value == @supplier_id;
+
+# This computes a single column based on a subtraction formula. It
+# will update the table:
+#
+# [
+#   { 1, 0.02, 1.3, -.3 },
+#   { 2, 0.04, 1.3, .7  },
+#   { 3, 0.06, 1.3, 1.7 }
+# ]
+#
+MAP table:sellers_reductions
+  USING difference = subtract(@distance, @seller_distance)
+
+# This removes rows that fail our condition, giving:
+#
+# [
+#   { 2, 0.04, 1.3, .7  },
+#   { 3, 0.06, 1.3, 1.7 }
+# ]
+#
+FILTER table:sellers_reductions
+  WHEN @difference >= 0
+
+# Reduce always finishes with a single row based on the calculation
+# done in the USING and the condition in the WHEN:
+#
+# [
+#   { 2, 0.04, 1.3, .7  }
+# ]
+#
+REDUCE table:sellers_reductions
+  USING min_difference = min(min_difference, @difference)
+  WHEN difference == @min_difference 
+
+# This create a new table that includes the relevant fields from the
+# items table, joining the reduction from above.
+ASSEMBLE table:item_reductions
+  COLUMNS (id, classification, price) FROM table:items
+    WHEN item:classification.list_name == 'UNSPSC'
+    WHEN item:classification.value == '506505'
+  COLUMN reduction FROM table:sellers_reductions
+
+# Adds the UBL-ish allowance to the item table that we computed above.
+MAP table:item_reductions
+  USING allowance.charge = false
+  USING allowance.amount.value = multiply(@price.value, @reduction)
+  USING allowance.amount.currency_code = @price.currency_code
+
+# This issues a revision of the original items table, adding the
+# allowance column.
+REVISE table:items
+  ADD allowance FROM table:item_reductions WHEN id.value == @id.value
