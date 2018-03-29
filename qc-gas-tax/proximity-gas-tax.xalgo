@@ -41,7 +41,7 @@ ASSEMBLE table:sellers_reductions
 # ]
 #
 MAP table:sellers_reductions
-  USING difference = subtract(@distance, @seller_distance)
+  USING difference = subtract(@distance, @seller_distance);
 
 # This removes rows that fail our condition, giving:
 #
@@ -51,7 +51,7 @@ MAP table:sellers_reductions
 # ]
 #
 FILTER table:sellers_reductions
-  WHEN @difference >= 0
+  WHEN @difference >= 0;
 
 # Reduce always finishes with a single row based on the calculation
 # done in the USING and the condition in the WHEN:
@@ -62,7 +62,7 @@ FILTER table:sellers_reductions
 #
 REDUCE table:sellers_reductions
   USING min_difference = min(min_difference, @difference)
-  WHEN difference == @min_difference 
+  WHEN difference == @min_difference;
 
 # This create a new table that includes the relevant fields from the
 # items table, joining the reduction from above.
@@ -70,15 +70,15 @@ ASSEMBLE table:item_reductions
   COLUMNS (id, classification, price) FROM table:items
     WHEN item:classification.list_name == 'UNSPSC'
     WHEN item:classification.value == '506505'
-  COLUMN reduction FROM table:sellers_reductions
+  COLUMN reduction FROM table:sellers_reductions;
 
 # Adds the UBL-ish allowance to the item table that we computed above.
 MAP table:item_reductions
   USING allowance.charge = false
   USING allowance.amount.value = multiply(@price.value, @reduction)
-  USING allowance.amount.currency_code = @price.currency_code
+  USING allowance.amount.currency_code = @price.currency_code;
 
 # This issues a revision of the original items table, adding the
 # allowance column.
 REVISE table:items
-  ADD allowance FROM table:item_reductions WHEN id.value == @id.value
+  ADD allowance FROM table:item_reductions WHEN id.value == @id.value;
