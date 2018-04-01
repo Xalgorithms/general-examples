@@ -1,0 +1,6 @@
+[
+  { "distance" : 1, "reduction" : 0.05 },
+  { "distance" : 5, "reduction" : 0.03 },
+  { "distance" : 10, "reduction" : 0.02 },
+  { "distance" : 20, "reduction" : 0.01 }
+]
