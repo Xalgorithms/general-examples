@@ -1,25 +1,26 @@
-# GOAL: This rule operates on documents that are prepared by the
-# Lichen application, originating as UBL invoices. It selects invoices
-# that apply to consumer petrol sales (using ISIC and UNSPSC)
-# coding. For any items in the invoice that required UNSPSC code, it
-# will generate a revision that adds an allowance (discount) to the
-# invoice.
+# GOAL: This rule operates on documents that are prepared by the Lichen
+# application, originating as UBL purchase orders. It is invoked by purchase
+# orders of real property buyers in Signapore (using ISIC and UNSPSC
+# coding). Buyers of real property are required to pay ABSD on top of the existing 
+# Buyer’s Stamp Duty (BSD). ABSD and BSD are computed on the purchase 
+# price as stated in the dutiable document or the market value of 
+# the property (whichever is the higher amount).
 
-# This rule only applies to invoices from suppliers in the consumer
-# petrol industry (ISIC/G4711).
-WHEN envelope:type == 'invoice';
+# This rule only applies to purchase orders from buyers classified to
+# "real estate activities with own or leased property" (ISIC/L6810).
+WHEN envelope:type == 'purchase-order';
 WHEN envelope:parties.supplier.industry.list_id == 'ISIC';
-WHEN envelope:parties.supplier.industry.value == 'G4711';
+WHEN envelope:parties.supplier.industry.value == 'L6810';
 
-# This rule only operates on invoice items that are coded as consumer
-# petrol (UNSPSC/506505).
+# This rule only operates on purchase orders that are coded as 
+# "Sale of property and building (UNSPSC/80131600).
 WHEN item:classification.list_name == 'UNSPSC';
-WHEN item:classification.value == '506505';
+WHEN item:classification.value == '80131600';
 WHEN item:quantity.value > 0;
 
 # load tables that add additional information
-REQUIRE ca.qc.tax:supplier_distances:0.0.1 AS supplier_distances;
-REQUIRE ca.qc.tax:reductions_by_distance:0.0.1 AS reductions_by_distance;
+REQUIRE sg..tax:buyer_profile:0.0.1 AS supplier_distances;
+REQUIRE sg..tax:reductions_by_distance:0.0.1 AS reductions_by_distance;
 
 # PHASE ONE: Build a table that can be used to transform any items in
 # the invoice that related to UNSPSC/506505. We will do this by
