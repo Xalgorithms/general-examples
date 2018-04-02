@@ -127,10 +127,10 @@ REDUCE table:sellers_reductions
 #   { "classification" : { list_name: "UNSPSC", "value" : "506505" }, "price": { currency_code: "CAD", "value" : "18.00" }, "reduction" : 0.0.3 }
 # ]
 #
-ASSEMBLE table:item_reductions
+ASSEMBLE item_reductions
   COLUMNS (id, classification, price) FROM table:items
-    WHEN item:classification.list_name == 'UNSPSC'
-    WHEN item:classification.value == '506505'
+    WHEN @classification.list_name == 'UNSPSC'
+    WHEN @classification.value == '506505'
   COLUMN reduction FROM table:sellers_reductions;
 
 # We use MAP to add an additional NESTED COLUMN that translates to an
