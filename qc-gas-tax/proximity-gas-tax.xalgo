@@ -59,7 +59,7 @@ REQUIRE ca.qc.tax:reductions_by_distance:0.0.1 AS reductions_by_distance;
 # ]
 #
 
-ASSEMBLE table:sellers_reductions
+ASSEMBLE sellers_reductions
   COLUMNS FROM table:reductions_by_distance
   COLUMN seller_distance FROM table:supplier_distances WHEN envelope:parties.suppler.id.value == @supplier_id;
 
