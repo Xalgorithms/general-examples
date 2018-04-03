@@ -67,7 +67,7 @@ REQUIRE sg..tax:rates_by_profile:0.1.1;
 # ]
 
 
-ASSEMBLE table:buyers_rates
+ASSEMBLE buyers_rates
   COLUMNS FROM table:rates_by_profile
   COLUMN buyer_profile FROM table:buyer_profiles WHEN envelope:parties.buyer.id.value == @buyer_id;
 
@@ -111,11 +111,11 @@ REDUCE table:buyers_rates
 #   { "classification" : { list_name: "UNSPSC", "value" : "506505" }, "price": { currency_code: "CAD", "value" : "18.00" }, "reduction" : 0.0.3 }
 # ]
 #
-ASSEMBLE table:item_reductions
+ASSEMBLE item_reductions
   COLUMNS (id, classification, price) FROM table:items
     WHEN item:classification.list_name == 'UNSPSC'
     WHEN item:classification.value == '506505'
-  COLUMN reduction FROM table:sellers_reductions;
+  COLUMN absd_rate FROM table:buyers_rates; 
 
 # We use MAP to add an additional NESTED COLUMN that translates to an
 # allowance (a discount in this case) in UBL concepts, yielding:
