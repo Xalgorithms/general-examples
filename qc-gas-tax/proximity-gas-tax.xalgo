@@ -123,8 +123,8 @@ REDUCE table:sellers_reductions
 # using the cartesian product of the table we built in PHASE ONE. This yields:
 #
 # [
-#   { "classification" : { list_name: "UNSPSC", "value" : "506505" }, "price": { currency_code: "CAD", "value" : "10.00" }, "reduction" : 0.0.3 },
-#   { "classification" : { list_name: "UNSPSC", "value" : "506505" }, "price": { currency_code: "CAD", "value" : "18.00" }, "reduction" : 0.0.3 }
+#   { "classification" : { list_name: "UNSPSC", "value" : "506505" }, "price": { currency_code: "CAD", "value" : "10.00" }, "reduction" : .03 },
+#   { "classification" : { list_name: "UNSPSC", "value" : "506505" }, "price": { currency_code: "CAD", "value" : "18.00" }, "reduction" : .03 }
 # ]
 #
 ASSEMBLE item_reductions
