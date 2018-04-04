@@ -2,7 +2,7 @@
   "namespace" : "sg..tax",
   "rules" : {
     "additional-buyers-stamp-duty" : {
-      "version" : "0.0.1",
+      "version" : "0.1.0",
       "effective" : [
         { "timezone" : "AST", "starts" : "2013-01-12T00:00", "ends" : "9999-12-30T23:59" }
       ],
