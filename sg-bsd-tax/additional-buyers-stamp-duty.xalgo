@@ -79,7 +79,7 @@ MAP table:rates_by_profile
   USING profile;
 
 FILTER table:buyers_rates
-  WHEN @profile ^= @buyer_profile;
+  WHEN @profile = @buyer_profile;
 
 REDUCE table:buyers_rates
   USING @profile
