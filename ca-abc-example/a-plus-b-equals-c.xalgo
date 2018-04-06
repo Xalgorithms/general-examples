@@ -1,16 +1,17 @@
-WHEN envelope:type == 'purchase-order';
-WHEN item == 'a'
+WHEN envelope:type == 'invoice';
 WHEN item:quantity.value > 0;
-REQUIRE ca.on.tax:flatfee_b:0.1.0;
-MAP table:flatfee_b
-  USING value;
-FILTER table:flatfee_b
-  WHEN letter == 'b';
-REDUCE table:flatfee_b
-  USING value
-  WHEN [I DON'T KNOW WHAT TO DO HERE];
-MAP table:flatfee_b
-  USING flatfee_b = add(@price, @value);
-REVISE table:items
-ADD [I DON'T KNOW WHAT TO DO HERE];
 
+REQUIRE ca.on.tax:flatfee_b:0.1.0 AS flatfee_b;
+
+ASSEMBLE changes
+  COLUMNS table:items
+  COLUMNS FROM flatfee_b;
+
+FILTER table:changes
+  WHEN @id.value == @code;
+
+MAP table:changes
+  USING new_price = add(@price.value, @b);
+
+REVISE table:items
+  UPDATE price.value FROM table:changes WHEN @id.value == @code;
