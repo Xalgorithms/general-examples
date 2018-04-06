@@ -4,7 +4,7 @@ WHEN item:quantity.value > 0;
 REQUIRE ca.on.tax:flatfee_b:0.1.0 AS flatfee_b;
 
 ASSEMBLE changes
-  COLUMNS table:items
+  COLUMNS FROM table:items
   COLUMNS FROM flatfee_b;
 
 FILTER table:changes
