@@ -2,7 +2,7 @@ WHEN envelope:type == 'invoice';
 WHEN item:quantity.value > 0;
 WHEN item:id.value == 'a'
 
-REQUIRE ca.on.tax:flatfee_b:0.1.0 AS flatfee_b;
+REQUIRE ca.on.tax:flatfee_b:0.1.0;
 
 ASSEMBLE changes
   COLUMNS FROM table:items
