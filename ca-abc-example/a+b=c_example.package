@@ -1,0 +1,31 @@
+{
+  "namespace" : "ca.on.tax",
+  "rules" : {
+    "a+b=c_example" : {
+      "version" : "0.1.0",
+      "effective" : [
+        { "timezone" : "AST", "starts" : "2018-04-01T00:00", "ends" : "9999-12-30T23:59" }
+      ],
+      "jurisdiction" : {
+        "country" : "CA",
+      },
+      "xa" : {
+        "version" : "0.2.0"
+      },
+      "criticality" : "experimental",
+      "url" : "http://www.abc.ca",
+      "roles" : {
+        "manager" : {
+          "name" : "Joseph Potvin",
+          "email" : "jpotvin@xalgorithms.org"
+        },
+        "author" : {
+          "name" : "Joseph Potvin",
+          "email" : "jpotvin@xalgorithms.org"
+        }
+      }
+    }
+  },
+  "tables" : {
+  }
+}

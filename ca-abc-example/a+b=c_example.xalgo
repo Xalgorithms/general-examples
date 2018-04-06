@@ -1,0 +1,16 @@
+WHEN envelope:type == 'purchase-order';
+WHEN item == 'a'
+WHEN item:quantity.value > 0;
+REQUIRE ca.on.tax:flatfee_b:0.1.0;
+MAP table:flatfee_b
+  USING value;
+FILTER table:flatfee_b
+  WHEN letter == 'b';
+REDUCE table:flatfee_b
+  USING value
+  WHEN [I DON'T KNOW WHAT TO DO HERE];
+MAP table:flatfee_b
+  USING flatfee_b = add(@price, @value);
+REVISE table:items
+ADD [I DON'T KNOW WHAT TO DO HERE];
+
