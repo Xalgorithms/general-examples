@@ -1,0 +1,17 @@
+WHEN envelope:type == 'invoice';
+WHEN item:quantity.value > 0;
+
+REQUIRE ca.on.tax:flatfee_b:0.1.0 AS flatfee_b;
+
+ASSEMBLE changes
+  COLUMNS table:items
+  COLUMNS FROM flatfee_b;
+
+FILTER table:changes
+  WHEN @id.value == @code;
+
+MAP table:changes
+  USING new_price = add(@price.value, @b);
+
+REVISE table:items
+  UPDATE price.value FROM table:changes WHEN @id.value == @code;
