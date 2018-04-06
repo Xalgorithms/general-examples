@@ -1,8 +1,8 @@
 {
   "namespace" : "ca.on.tax",
   "rules" : {
-    "a+b=c_example" : {
-      "version" : "0.1.0",
+    "a-plus-b-equals-c" : {
+      "version" : "0.0.1",
       "effective" : [
         { "timezone" : "AST", "starts" : "2018-04-01T00:00", "ends" : "9999-12-30T23:59" }
       ],
@@ -13,7 +13,7 @@
         "version" : "0.2.0"
       },
       "criticality" : "experimental",
-      "url" : "http://www.abc.ca",
+      "url" : "http://xalgorithms.org/examples/a-plus-b",
       "roles" : {
         "manager" : {
           "name" : "Joseph Potvin",
@@ -27,5 +27,19 @@
     }
   },
   "tables" : {
+    "flatfee-b" : {
+      "version" : "0.0.1",
+      "url" : "https://github.com/Xalgorithms/xadf-examples-general",
+      "roles" : {
+        "manager" : {
+          "name" : "Joseph Potvin",
+          "email" : "jpotvin@xalgorithms.org"
+        },
+        "author" : {
+          "name" : "Joseph Potvin",
+          "email" : "jpotvin@xalgorithms.org"
+        }
+      }
+    }
   }
 }
