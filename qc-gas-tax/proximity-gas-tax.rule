@@ -1,0 +1,37 @@
+WHEN envelope:type == 'invoice';
+WHEN envelope:parties.supplier.industry.list_id == 'ISIC';
+WHEN envelope:parties.supplier.industry.value == 'G4711';
+WHEN item:classification.list_name == 'UNSPSC';
+WHEN item:classification.value == '506505';
+WHEN item:quantity.value > 0;
+
+REQUIRE ca.qc.tax:supplier_distances:0.0.1 AS supplier_distances;
+REQUIRE ca.qc.tax:reductions_by_distance:0.0.1 AS reductions_by_distance;
+
+ASSEMBLE sellers_reductions
+  COLUMNS FROM table:reductions_by_distance
+  COLUMN seller_distance FROM table:supplier_distances WHEN envelope:parties.suppler.id.value == @supplier_id;
+
+MAP table:sellers_reductions
+  USING difference = subtract(@distance, @seller_distance);
+
+FILTER table:sellers_reductions
+  WHEN @difference >= 0;
+
+REDUCE table:sellers_reductions
+  USING min_difference = min(min_difference, @difference)
+  WHEN difference == @min_difference;
+
+ASSEMBLE item_reductions
+  COLUMNS (id, classification, price) FROM table:items
+    WHEN @classification.list_name == 'UNSPSC'
+    WHEN @classification.value == '506505'
+  COLUMN reduction FROM table:sellers_reductions;
+
+MAP table:item_reductions
+  USING allowance.charge = false
+  USING allowance.amount.value = multiply(@price.value, @reduction)
+  USING allowance.amount.currency_code = @price.currency_code;
+
+REVISE table:items
+  ADD allowance FROM table:item_reductions WHEN id.value == @id.value;
