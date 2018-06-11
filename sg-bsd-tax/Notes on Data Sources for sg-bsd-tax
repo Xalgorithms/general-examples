@@ -1,5 +1,7 @@
 Following are some temporary working notes on data sources for implementing this rule.
 
+Here is the rule expressed in English: https://www.iras.gov.sg/IRASHome/Other-Taxes/Stamp-Duty-for-Property/Working-out-your-Stamp-Duty/Buying-or-Acquiring-Property/What-is-the-Duty-that-I-Need-to-Pay-as-a-Buyer-or-Transferee-of-Residential-Property/Additional-Buyer-s-Stamp-Duty--ABSD-/
+
 Two samples "offers to purchase" real property are provided from Singapore. In order to create some hypothetical cases for 
 testing, we can treat them as globally-relevant sample templates and adjust as we learn of additional or differen info 
 required on other jurisdicions. 
