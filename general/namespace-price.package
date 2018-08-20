@@ -1,0 +1,84 @@
+The following adopts William Stanley Jevons’ four-part view of the ideal requirements of money as providing a 
+generally accepted standard of comparative value amongst all persons of a given region, and amongst regions, 
+at a given time, and through time ("Money and the Mechanism of Exchange", 1898). Jevons expressed himself 
+with the now universally known phrases: “medium of exchange”, “means of payment”, “unit of account” and “standard 
+for deferred payment”. However his words “medium”, “means” “account” and “standard” are neither precisely defined 
+for computation, nor are they practically understood by bankers, economists, managers, or others. We build upon the restatement 
+of Jevon’s requirement offered by anthropologist Helen Codere, that money “is a symbol of goods [including services] 
+that can abstract time, person, place and particularity from their exchange ... It is a symbol of both past and 
+future exchangeable goods” ("Money-Exchange Systems and a Theory of Money", 1968) Codere’s description of money as a composite
+symbol is a useful contribution for computational system design because she separates out granular semantic concepts that 
+comprise money. However her own notation is not optimal, nor computable, and the scope of her formal expression 
+is also not as comprehensive as the explanatory text of her article. So these are expressed here differently in order 
+to be more suitable as documentation for genuine computation. Also some semantic concepts are added for completeness.
+
+We adopt the perspective of Geoffrey Ingham that money is a social relation that employs quantitative methods for 
+tracking relative social entitlements and obligations ("Money is a social relation", 1996) ("Fundamentals of a theory 
+of money: untangling Fine, Lapavitsas and Zelizer", 2001). Without the concept "Price" there can exist no concept "Money".
+Therefore "money" is considered here to be as expressed exclusively within the namespace "price". 
+
+In what follows, a “namespace” describes a set of lexemes as defined in the computing, linguistics and anthropological 
+contexts. A lexeme is a pattern of letters paired with semantic meaning to constitute a token (Aho, 2007, p. 6,111).  
+This conceptual precision is brought forward in particular to ensure that the three-letter patterns adopted from 
+ISO 4217 “Currency codes” (the first two letters of the country code, followed by the first letter of the currency name) 
+will be interpreted by readers as intended. Each of these standardized character patterns is paired with a particular 
+numeraire used for currency, serving the same kind of purpose as patterns expressed in physical tokens. That’s to say 
+we intend to refer in the namespace to the physical tokens known as “cash” and the digital tokens that may be stored 
+on computers and transmitted over networks. But we have deliberately not used the broader term “currency”, which 
+invokes their entire respective currency systems. 
+
+
+{
+  "namespace" : "price",
+    "agent" : {
+      "buyer" : "F5h&ggeVFxry*yhr3", #sovrinid
+      "seller" : "Y78uhJi90oGf4#D$Yg", #sovrinid
+      "jurisdiction" : {
+        "country" : "CA", #iso3166-1
+        "region" : "CA-QC" #iso3166-2
+          }
+      },
+  "unit" : {   #always 1 unit
+    "numeraire" : {   #a character string from iso4217 or a proposed extension to it related to a particular numeraire
+      "cad" : "1",
+      "eur" : "1",
+        },
+      },
+    "measure" : {   #code from Unified Code for Units of Measure - UCUM
+      "kg" : "1",
+      "ml" : "1",
+        }
+      }, 
+  "quantity" : {   #real numbers
+    "fixed" : {   #number obtained from a table lookup
+      "scalar" : "lookup table:catalog_price:0.0.1 row 3, column 7"   # example: 10.99
+        },
+    "variable" : {   #number obtained from URL   
+      "datetime" : "https://www.ntppool.org"  #conformant with ISO 8601, example: 2018-12-30T23:59
+      "cpi" : "https://www.numbeo.com/common/api.jsp",   # example: 1.183
+      "λ" : {
+        "band5" : "https://landsat.usgs.gov/what-are-best-spectral-bands-use-my-study",  #example: 0.862
+          },
+        },
+  "method" : {
+    "token" : {
+      "material" : "cash", 
+      "digital" : {
+        "iota" : "URL"  #URL would point to an API
+        "eth" : "URL"  #URL would point to an API
+          },
+    "registry" : {
+      "message-passing" : {
+        "ethereum" : "URL"  #URL would point to an API
+          },
+      "shared-memory" : {
+        "git" :  "URL"  #URL would point to an API
+          }, 
+      },
+  "good" : {  # Includes goods, services and rights, each idenfied with the UN Standard Products & Services Code, UNSPSC
+    "unspsc" : 12141740"
+    "label" : "silver Ag";  #other example: 64111800 is entitlements or rights
+      },
+    },
+  },
+}
