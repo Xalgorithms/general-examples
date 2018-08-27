@@ -1,3 +1,16 @@
+EFFECTIVE
+  IN CA
+  FROM 2018-04-01T00:00
+  TO 9999-12-30T23:59
+  TIMEZONE America/Toronto;
+
+META
+  VERSION "0.0.1"
+  RUNTIME "0.3.0"
+  CRITICALITY "experimental"
+  MANAGER "Joseph Potvin <jpotvin@xalgorithms.org>"
+  MAINTAINER "Don Kelly <karfai@gmail.com>";
+
 WHEN envelope:type == 'invoice';
 WHEN item:quantity.value > 0;
 WHEN item:id.value == 'a'
