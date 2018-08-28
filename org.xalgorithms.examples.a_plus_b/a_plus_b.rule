@@ -13,7 +13,7 @@ META
 
 WHEN envelope:type == "invoice";
 WHEN item:quantity.value > 0;
-WHEN item:id.value == "a"
+WHEN item:id.value == "a";
 
 REQUIRE org.xalgorithms.examples.a_plus_b:all_bs:0.0.1;
 
