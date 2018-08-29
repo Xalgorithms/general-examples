@@ -6,7 +6,7 @@ EFFECTIVE
 
 META
   VERSION "0.0.1"
-  RUNTIME "0.3.0"
+  RUNTIME "0.4.0"
   CRITICALITY "experimental"
   MANAGER "Joseph Potvin <jpotvin@xalgorithms.org>"
   MAINTAINER "Don Kelly <karfai@gmail.com>";
@@ -19,7 +19,7 @@ REQUIRE org.xalgorithms.examples.a_plus_b:all_bs:0.0.1;
 
 ASSEMBLE changes
   COLUMNS FROM table:items
-  COLUMNS FROM flatfee_b;
+  COLUMNS FROM table:all_bs;
 
 FILTER table:changes
   WHEN @id.value == @code;
@@ -28,4 +28,5 @@ MAP table:changes
   USING new_price = add(@price.value, @b);
 
 REVISE table:items
-  UPDATE price.value FROM table:changes WHEN @id.value == @code;
+  UPDATE price.value
+  FROM table:changes;
