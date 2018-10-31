@@ -31,8 +31,8 @@ WHEN item:classification.value == '506505';
 WHEN item:quantity.value > 0;
 
 # load tables that add additional information
-REQUIRE ca.qc.tax:supplier_distances:0.0.1 AS supplier_distances;
-REQUIRE ca.qc.tax:reductions_by_distance:0.0.1 AS reductions_by_distance;
+REQUIRE org.xalgorithms.examples.qc_gas_tax:supplier_distances:0.0.1;
+REQUIRE org.xalgorithms.examples.qc_gas_tax:reductions_by_distance:0.0.1;
 
 # PHASE ONE: Build a table that can be used to transform any items in
 # the invoice that related to UNSPSC/506505. We will do this by

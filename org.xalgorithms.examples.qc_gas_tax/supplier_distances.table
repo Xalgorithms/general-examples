@@ -1,0 +1,6 @@
+META
+  VERSION "0.0.1"
+  MANAGER "Joseph Potvin <jpotvin@xalgorithms.org>"
+  MAINTAINER "Don Kelly <karfai@gmail.com>";
+
+DATA supplier_distances.json 152t1p6nhu85m5d9pi3qne75ni2g8xz4;

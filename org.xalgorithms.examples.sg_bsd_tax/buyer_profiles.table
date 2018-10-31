@@ -1,0 +1,6 @@
+META
+  VERSION "0.0.1"
+  MANAGER "Joseph Potvin <jpotvin@xalgorithms.org>"
+  MAINTAINER "Don Kelly <karfai@gmail.com>";
+
+DATA buyer_profiles.json 198nt4dug5sds2p4lf6zy15tka67h722;

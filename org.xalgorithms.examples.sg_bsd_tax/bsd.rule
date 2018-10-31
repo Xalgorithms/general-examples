@@ -36,8 +36,9 @@ WHEN item:classification.value == '80131600';
 WHEN item:quantity.value > 0;
 
 # load tables that add additional information
-REQUIRE sg..tax:buyer_profiles:0.1.1;
-REQUIRE sg..tax:rates_by_profile:0.1.1;
+REQUIRE org.xalgorithms.examples.sg_bsd_tax:rates_by_profile:0.0.1;
+REQUIRE org.xalgorithms.examples.sg_bsd_tax:buyer_profiles:0.0.1;
+
 
 # PHASE ONE: Build a table that can be used to transform any items in
 # the purchase order related to UNSPSC/80131600. We will do this by
