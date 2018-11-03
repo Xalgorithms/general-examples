@@ -18,3 +18,4 @@ data from those files.
 If there are top-level directories that **are not namespaces** then
 *namespaces.txt* can be used as a white-list to indicate which
 directories should be considered namespaces.
+&Omega;

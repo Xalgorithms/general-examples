@@ -18,7 +18,7 @@ META
   RUNTIME "0.4.0"
   CRITICALITY "experimental"
   MANAGER "Joseph Potvin <jpotvin@xalgorithms.org>"
-  MAINTAINER "Don Kelly <karfai@gmail.com>";
+  MAINTAINER "Ryan Fleck <ryan.fleck@protonmail.com>";
   URL "https://www.iras.gov.sg/irashome/Other-Taxes/Stamp-Duty-for-Property/Working-out-your-Stamp-Duty/Buying-or-Acquiring-Property/What-is-the-Duty-that-I-Need-to-Pay-as-a-Buyer-or-Transferee-of-Residential-Property/Additional-Buyer-s-Stamp-Duty--ABSD-/";
 
 # This rule applies only to purchase orders classified as

@@ -16,7 +16,8 @@ META
   RUNTIME "0.4.0"
   CRITICALITY "experimental"
   MANAGER "Joseph Potvin <jpotvin@xalgorithms.org>"
-  MAINTAINER "Don Kelly <karfai@gmail.com>";
+  MAINTAINER "Ryan Fleck <ryan.fleck@protonmail.com>"
+  URL "http://legisquebec.gouv.qc.ca/fr/ShowDoc/cr/T-1,%20r.%201";
 
 # This rule only applies to invoices from suppliers in the consumer
 # petrol industry (ISIC/G4711).
